@@ -12,8 +12,8 @@ repositories {
 
 group = 'io.izuno'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 [compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:all,-options,-processing,-path"]
@@ -30,7 +30,7 @@ configurations {
 
 dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation 'com.ibm.icu:icu4j:70.1'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
 }
 
 test {
@@ -44,7 +44,6 @@ publishing {
         maven {
             name = "GitHubPackages"
             url = "https://maven.pkg.github.com/izuno4t/maven-tools"
-
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")

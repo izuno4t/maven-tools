@@ -42,12 +42,17 @@ test {
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
+            name = "maven-tools"
             url = "https://maven.pkg.github.com/izuno4t/maven-tools"
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
             }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            from components.java
         }
     }
 }

@@ -54,20 +54,17 @@ public class MavenModuleUtil {
         }
     }
 
-    public static List<ModuleInfo> searchModulesInfo(File warfile) {
+    public static List<ModuleInfo> searchModulesInfo(File file) {
 
         List<ModuleInfo> result = new ArrayList<>();
-        try (JarFile jar = new JarFile(warfile)) {
+        try (JarFile jar = new JarFile(file)) {
             Enumeration<JarEntry> entries = jar.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
                 if (entry.getName().startsWith("META-INF/maven/") && entry.getName().endsWith("pom.properties")) {
                     Properties p = new Properties();
                     p.load(jar.getInputStream(entry));
-                    ModuleInfo info = new ModuleInfo();
-                    info.setArtifactId(p.getProperty("artifactId"));
-                    info.setGroupId(p.getProperty("groupId"));
-                    info.setVersion(p.getProperty("version"));
+                    ModuleInfo info = new ModuleInfo(p.getProperty("artifactId"), p.getProperty("groupId"), p.getProperty("version"));
                     result.add(info);
                 }
             }
